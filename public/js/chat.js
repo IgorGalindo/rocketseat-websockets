@@ -1,5 +1,5 @@
 const socket = io('http://localhost:3000');
-
+let roomId = "";
 
 function addInfoUserLogged({ name, avatar }) {
   document.querySelector(".user_logged").innerHTML += `
@@ -59,3 +59,14 @@ function addUserList(user) {
     })
   })
 }());
+
+
+document.getElementById("users_list").addEventListener("click", (e) => {
+  if (e.target && e.target.matches("li.user_name_list")) {
+    const idUser = e.target.getAttribute("idUser");
+
+    socket.emit("start_chat", { idUser }, (data) => {
+      roomId = data.idChatRoom;
+    })
+  }
+});
