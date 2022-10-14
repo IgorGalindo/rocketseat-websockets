@@ -18,12 +18,6 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const io = new Server(server);
 
-io.on('connection', (socket) => {
-    console.log(socket.id);
-});
-
-app.get('/', (request, response) => {
-    return response.json({ message: 'Hello WebSocket' });
-});
+io.on('connection', (socket) => {});
 
 export { server, io }

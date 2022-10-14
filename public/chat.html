@@ -19,28 +19,14 @@
     <div class="flex flex-1 text-white">
       <!-- Left -->
       <div class="w-3/12 h-screen bg-gray-900 position-relative">
+
         <div id="users" class="m-3">
           <div class="bg-green w-4"></div>
-          <ul id="users_list">
-            <li
-                class="user_name_list"
-                id="user_${user._id}"
-                idUser="${user._id}"
-              >
-                <img
-                  class="nav_avatar"
-                  src="#"
-                />
-                Caio
-              </li>
-          </ul>
+          <ul id="users_list"></ul>
         </div>
 
         <div class="footer w-3/12">
-          <div class="user_logged">
-            <img class="avatar_user_logged" src="#" />
-            <strong id="user_logged">Caio</strong>
-          </div>
+          <div class="user_logged"></div>
         </div>
       </div>
 
@@ -48,30 +34,27 @@
       <div class="w-9/12 bg-gray-700" id="c_message">
         <div class="message_user" id="message_user">
           <span class="user_name user_name_date">
-              <img
-                class="img_user"
-                src="#"
-              />
-              <strong>Mariana</strong>
-              <span> 20/10/2020</span></span
-            >
-            <div class="messages">
-              <span class="chat_message"> Oi tudo bem?</span>
-            </div>
+            <img class="img_user" src="#" />
+            <strong>Mariana</strong>
+            <span> 20/10/2020</span></span>
+          <div class="messages">
+            <span class="chat_message"> Oi tudo bem?</span>
+          </div>
         </div>
 
+        
+        
         <input type="text" id="user_message" class="
-              shadow
-              bg-gray-600
-              absolute
-              bottom-0
-              w-8/12
-              m-3
-              p-2
-              rounded
-              focus:outline-none
-              hidden
-            " placeholder="Digite sua mensagem" />
+          shadow
+          bg-gray-600
+          absolute
+          bottom-0
+          w-8/12
+          m-3
+          p-2
+          rounded
+          focus:outline-none
+        " placeholder="Digite sua mensagem" />
       </div>
     </div>
   </div>
