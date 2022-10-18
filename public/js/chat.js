@@ -33,7 +33,7 @@ function addMessage(data) {
 
   divMessageUser.innerHTML += `<span class="user_name user_name_date">
       <img class="img_user" src="${data.user.avatar}" />
-      <strong> ${data.user.name}</strong>
+      <strong> ${data.user.name} &nbsp; </strong>
       <span> ${dayjs(data.message.created_at).format(
     "DD/MM/YYYY HH:mm"
   )}</span>
@@ -59,11 +59,9 @@ function addMessage(data) {
 
   socket.on("new_users", data => {
     const existsInDiv = document.getElementById(`user_${data._id}`);
-
     if (!existsInDiv) {
       addUserList(data);
     }
-
   });
 
   socket.emit("get_users", (users) => {
@@ -72,20 +70,46 @@ function addMessage(data) {
         addUserList(user);
       }
     });
+  });
 
-    socket.on("message", (data) => {
+  socket.on("message", (data) => {
+    if (data.message.roomId === idChatRoom) {
       addMessage(data);
-    });
-  })
+    }
+  });
+
+  socket.on("notification", (data) => {
+    if (data.roomId !== idChatRoom) {
+      const user = document.getElementById(`user_${data.from._id}`);
+      user.insertAdjacentHTML("afterbegin", `
+        <div class="notification"></div>
+      `);
+    }
+
+  });
+
 }());
 
 
 document.getElementById("users_list").addEventListener("click", (e) => {
-  
+  const inputMessage = document.getElementById("user_message");
+  inputMessage.classList.remove("hidden");
+
+  document.querySelectorAll("li.user_name_list").forEach(element => {
+    element.classList.remove("user_in_focus");
+  });
+
   document.getElementById("message_user").innerHTML = "";
 
   if (e.target && e.target.matches("li.user_name_list")) {
     const idUser = e.target.getAttribute("idUser");
+
+    e.target.classList.add("user_in_focus");
+
+    const notification = document.querySelector(`#user_${idUser} .notification`);
+    if (notification) {
+      notification.remove()
+    };
 
     socket.emit("start_chat", { idUser }, (data) => {
       idChatRoom = data.room.idChatRoom;
